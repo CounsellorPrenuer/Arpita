@@ -1,0 +1,129 @@
+Of course. This is a very detailed submission for an accomplished professional, Dr. Arpita, and her established brand, Skillzy. The prompt will focus on creating a dynamic, vibrant, and highly credible personal branding website that functions as a powerful lead-generation tool, while clearly linking to her main company.
+
+Here is the comprehensive prompt for the Replit agent.
+
+Replit Agent Prompt: Create a Dynamic Personal Branding Website for Dr. Arpita (Skillzy)
+You are an expert full-stack web developer agent. Your mission is to build a stunning, modern, and fully responsive personal branding website for Dr. Arpita, the Founder of CHERRYSKILLZ Learning Pvt. Ltd (Skillzy).
+
+Primary Goal: Your design must be inspired by the polished UI/UX of the leadcrestconsulting.com example, but adapted to a vibrant, multi-color corporate palette. The website must serve as a powerful lead-generation tool, showcasing Dr. Arpita's extensive 20+ years of experience, numerous awards, and diverse coaching expertise. The final product must be fully functional, including live Razorpay integration.
+
+## 1. Core Technical Stack & Setup
+Framework: React with Vite.
+
+Styling: Tailwind CSS.
+
+File Structure: Organize into src/components (for Navbar, Hero, ServiceCard, Footer, etc.) and src/assets for the logo and images.
+
+## 2. Design Language & Inspiration Analysis
+Adhere to the modern design principles of the leadcrestconsulting.com example.
+
+Layout & Spacing: Use clean, dynamic grids and ample whitespace to create a professional and engaging user experience.
+
+Color Palette: The client requested a Green-yellow-blue-red-white-black scheme. Create a vibrant yet professional corporate palette.
+
+Primary Base: Use White and Black/Charcoal for backgrounds and text to maintain a clean, readable foundation.
+
+Brand Colors: Use Blue and Green as the main brand colors for UI elements, section backgrounds, and links.
+
+Action Accents: Use Red and Yellow strategically and sparingly as bright accent colors for important Call-to-Action buttons, key icons, and highlights to draw attention and create energy.
+
+UI Elements: Implement Glassmorphism, soft shadows, and smooth hover effects on all interactive elements.
+
+Animations: Use subtle on-scroll fade-in and slide-in animations.
+
+## 3. Branding & Core Identity
+Primary Brand: Skillzy / CHERRYSKILLZ Learning Pvt. Ltd.
+
+Personal Brand: Dr. Arpita
+
+Logo: Use the provided Skillzy logo from this link: https://api.typeform.com/responses/files/df28f7ba9ef714f4a206d9623b738e1737dcd03d09e61f6ed7a80cd20e0e26ed/Skillzy.png
+
+Profile Picture: CRITICAL: A profile picture was not provided. Use a professional and high-quality placeholder image of a female corporate leader that aligns with the brand's aesthetic. Add a clear comment in the code for the client to easily replace the URL.
+
+Typography: Use a clean and versatile font pairing like "Poppins" for headings and "Inter" for body text.
+
+## 4. Website Structure & Content (Single-Page Scroller)
+Build the website as a single, smooth-scrolling page with clear, impactful sections.
+
+a. Navbar
+Style: Sticky, semi-transparent with a blur effect.
+
+Content: Skillzy Logo (left); Links: About, Coaching, Programs, Awards, Contact; CTA Button (right): "Book a Consultation".
+
+b. Hero Section
+Layout: A dynamic, full-width section.
+
+Content:
+
+Main Headline: Empowering Growth. Inspiring Achievement.
+
+Sub-headline: "Dr. Arpita, Founder of Skillzy, offers world-class coaching and training to unlock your personal and professional potential."
+
+Key Stats: Display her impressive numbers prominently in four icon-based stat boxes:
+
+20+ Years HR & L&OD Experience
+
+41,100+ Lives Transformed
+
+ICF Certified Executive Coach
+
+Multi-Award-Winning Leader
+
+c. Expertise Section
+Headline: My Areas of Expertise
+
+Layout: Two distinct sub-sections.
+
+Coaching Services: A grid of premium cards for each of her focus areas: Executive Coaching, Leadership Coaching, Organizational Development, Life Coaching, Career Coaching, and Wellness Coaching.
+
+Corporate & Academic Programs: Cards for Career Guidance, Workshops & Seminars, Admission Guidance, and Custom Programs for Organisations.
+
+d. Awards & Recognition Section
+Headline: Recognized for Excellence & Impact
+
+Layout: An elegant, scrolling carousel or a prestigious grid layout.
+
+Content: Showcase her major awards: Mahatma Gandhi Samman, Best Executive Coach Award, Iconic Women Leader, Top 10 Women Leaders in Soft Skills, etc.
+
+e. About Me Section
+Content: Use the detailed bio she provided. Format it into easy-to-read paragraphs with the placeholder profile picture.
+
+Certifications: Create a visually distinct sub-section to list her key certifications: ICF & IAPCCT Executive Coach, Certified Psychometric Assessor, Certified Dale Carnegie and MEPSC Trainer, NLP Coach.
+
+f. Packages & Payments Section
+Headline: Engage My Services
+
+Layout: A two or three-card pricing table.
+
+Content (Placeholder Packages):
+
+Executive Coaching Package: A comprehensive program for senior leaders.
+
+Career Development Session: A focused session for professionals seeking growth.
+
+Payment Integration: Each card must have an "Enroll Now" button integrated with Razorpay.
+
+g. Testimonials, Blog, Contact, and Footer
+Testimonials & Blog: Use placeholders as requested.
+
+Contact Section: A form next to her details: info@skillzy.in, +91 63620 74132, and social media icons.
+
+Footer: A comprehensive footer with all necessary links and social media handles, including all the Skillzy website links she provided.
+
+## 5. Key Functionality & Integrations
+Razorpay Integration: The package buttons must trigger the Razorpay modal. Use the live Razorpay credentials you provide via Replit Secrets.
+
+Contact Form: Implement validation and a "Thank you!" success message.
+
+Responsiveness: Flawless display on all devices is mandatory.
+
+SEO & Metadata:
+
+Title: Dr. Arpita | Executive Coach & Founder of Skillzy
+
+Meta Description: Award-winning ICF Certified Executive Coach Dr. Arpita offers leadership coaching, career guidance, and corporate training through Skillzy. 20+ years of experience.
+
+Keywords: executive coach, Dr. Arpita, Skillzy, leadership development, career guidance, ICF coach, corporate training, L&OD.
+
+## 6. Note on Integration
+This prompt will build a standalone website. Once complete, you can discuss with a web developer how to best integrate it with your existing skillzy.in domain, for example, by hosting it on a subdomain like coach.skillzy.in or as a new page.
