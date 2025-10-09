@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, X, Sparkles } from "lucide-react";
+import { Check, X, Sparkles, Zap, Crown } from "lucide-react";
 
 type TabKey = "8-9" | "10-12" | "college" | "working";
 
@@ -41,10 +41,10 @@ export default function PackagesSection() {
   }, []);
 
   const tabs = [
-    { key: "8-9" as TabKey, label: "8-9 STUDENTS" },
-    { key: "10-12" as TabKey, label: "10-12 STUDENTS" },
-    { key: "college" as TabKey, label: "COLLEGE GRADUATES" },
-    { key: "working" as TabKey, label: "WORKING PROFESSIONALS" },
+    { key: "8-9" as TabKey, label: "8-9 STUDENTS", gradient: "from-blue-500 to-cyan-500" },
+    { key: "10-12" as TabKey, label: "10-12 STUDENTS", gradient: "from-emerald-500 to-teal-500" },
+    { key: "college" as TabKey, label: "COLLEGE GRADUATES", gradient: "from-violet-500 to-purple-500" },
+    { key: "working" as TabKey, label: "WORKING PROFESSIONALS", gradient: "from-orange-500 to-amber-500" },
   ];
 
   const packagesData: Record<TabKey, Package[]> = {
@@ -167,46 +167,42 @@ export default function PackagesSection() {
   };
 
   const currentPackages = packagesData[activeTab];
+  const currentGradient = tabs.find(t => t.key === activeTab)?.gradient || "from-blue-500 to-cyan-500";
 
   const handleEnrollClick = (planName: string, price: string) => {
     console.log(`Enroll in ${planName} (${price}) clicked`);
-    // TODO: Integrate Razorpay payment gateway
     alert(`Razorpay integration coming soon! Plan: ${planName}, Price: ${price}`);
   };
 
   return (
-    <section id="packages-section" className="py-20 md:py-32 bg-gradient-to-b from-card/50 via-background to-card/30 relative overflow-hidden">
-      <div className="absolute top-20 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 left-0 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl animate-pulse delay-1000" />
+    <section id="packages-section" className="py-24 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_300px,#3b82f640,transparent)]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 backdrop-blur-sm mb-6">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Flexible Pricing Plans</span>
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500/20 to-violet-500/20 rounded-full border border-blue-500/30 backdrop-blur-xl mb-8">
+            <Zap className="h-5 w-5 text-blue-400" />
+            <span className="text-sm font-bold text-blue-300">Flexible Pricing Plans</span>
           </div>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6" data-testid="text-packages-title">
-            <span className="bg-gradient-to-r from-primary via-brand-green to-brand-yellow bg-clip-text text-transparent">
-              Choose Your Path
-            </span>
+          
+          <h2 className="font-heading font-black text-5xl md:text-6xl lg:text-7xl mb-6 text-white" data-testid="text-packages-title">
+            Choose Your <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">Path</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-medium">
             Tailored career guidance packages for every stage of your journey
           </p>
         </div>
 
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+        <div className="mb-16">
+          <div className="flex flex-wrap justify-center gap-4">
             {tabs.map((tab, index) => (
               <Button
                 key={tab.key}
-                variant={activeTab === tab.key ? "default" : "outline"}
-                size="lg"
                 onClick={() => setActiveTab(tab.key)}
-                className={`font-semibold transition-all duration-300 ${
+                className={`font-bold text-base px-8 py-6 transition-all duration-500 border-0 ${
                   activeTab === tab.key 
-                    ? 'shadow-lg shadow-primary/30 scale-105' 
-                    : 'hover:scale-105'
+                    ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-blue-500/50 scale-110` 
+                    : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:scale-105'
                 } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${200 + index * 100}ms` }}
                 data-testid={`tab-${tab.key}`}
@@ -217,55 +213,53 @@ export default function PackagesSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {currentPackages.map((pkg, index) => (
             <Card
               key={`${activeTab}-${index}`}
-              className={`p-8 md:p-10 group hover:scale-105 transition-all duration-500 hover:shadow-2xl relative overflow-hidden bg-gradient-to-br from-card via-card to-card/80 ${
-                pkg.isPopular ? "border-primary border-2 shadow-lg shadow-primary/20" : ""
+              className={`p-10 group hover:scale-105 transition-all duration-500 border-0 relative overflow-hidden ${
+                pkg.isPopular 
+                  ? `bg-gradient-to-br ${currentGradient} shadow-2xl shadow-blue-500/50` 
+                  : 'bg-slate-800/50 backdrop-blur-xl'
               }`}
               data-testid={`card-package-${activeTab}-${index}`}
             >
               {pkg.isPopular && (
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full" />
-              )}
-              
-              {pkg.isPopular && (
-                <Badge
-                  variant="default"
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 shadow-lg z-10"
-                  data-testid={`badge-popular-${index}`}
-                >
-                  ⭐ PREMIUM
-                </Badge>
+                <>
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-bl-full" />
+                  <Badge className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-500 text-slate-900 border-0 font-black text-sm px-6 py-2 shadow-2xl z-10" data-testid={`badge-popular-${index}`}>
+                    <Crown className="h-4 w-4 mr-1 inline" />
+                    PREMIUM
+                  </Badge>
+                </>
               )}
 
               <div className="mb-8 relative z-10">
-                <div className="text-sm font-bold text-primary mb-3 uppercase tracking-wider flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${index === 0 ? 'bg-brand-green' : 'bg-primary'}`} />
+                <div className={`text-sm font-bold ${pkg.isPopular ? 'text-white/80' : 'text-blue-400'} mb-3 uppercase tracking-wider flex items-center gap-2`}>
+                  <Sparkles className="h-4 w-4" />
                   {index === 0 ? "Standard" : "Premium"}
                 </div>
-                <h3 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 group-hover:text-primary transition-colors duration-300" data-testid={`text-package-name-${index}`}>
+                <h3 className={`font-heading font-black text-4xl ${pkg.isPopular ? 'text-white' : 'text-white'} mb-4`} data-testid={`text-package-name-${index}`}>
                   {pkg.planName}
                 </h3>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-5xl md:text-6xl font-heading font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent" data-testid={`text-package-price-${index}`}>
+                <div className="flex items-baseline gap-2">
+                  <span className={`text-6xl font-heading font-black ${pkg.isPopular ? 'text-white' : 'text-white'}`} data-testid={`text-package-price-${index}`}>
                     {pkg.price}
                   </span>
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-10">
                 {pkg.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3 group/item" data-testid={`feature-${index}-${featureIndex}`}>
-                    <div className={`flex-shrink-0 mt-0.5 p-1 rounded-full ${feature.included ? 'bg-brand-green/10' : 'bg-muted'}`}>
+                  <li key={featureIndex} className="flex items-start gap-3" data-testid={`feature-${index}-${featureIndex}`}>
+                    <div className={`flex-shrink-0 mt-0.5 p-1.5 rounded-full ${feature.included ? 'bg-emerald-500/20' : 'bg-slate-700'}`}>
                       {feature.included ? (
-                        <Check className="h-4 w-4 text-brand-green" />
+                        <Check className="h-4 w-4 text-emerald-400" />
                       ) : (
-                        <X className="h-4 w-4 text-muted-foreground" />
+                        <X className="h-4 w-4 text-slate-500" />
                       )}
                     </div>
-                    <span className={`text-sm leading-relaxed ${feature.included ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+                    <span className={`text-sm leading-relaxed font-medium ${feature.included ? (pkg.isPopular ? "text-white" : "text-white") : "text-slate-500"}`}>
                       {feature.text}
                     </span>
                   </li>
@@ -273,9 +267,12 @@ export default function PackagesSection() {
               </ul>
 
               <Button
-                variant="destructive"
                 size="lg"
-                className="w-full font-bold text-base shadow-lg shadow-destructive/30 hover:shadow-xl hover:shadow-destructive/40 hover:scale-105 transition-all duration-300"
+                className={`w-full font-black text-lg py-7 transition-all duration-300 border-0 ${
+                  pkg.isPopular 
+                    ? 'bg-white text-slate-900 hover:bg-white/90 shadow-2xl hover:shadow-white/50 hover:scale-105' 
+                    : `bg-gradient-to-r ${currentGradient} text-white hover:scale-105 shadow-2xl shadow-blue-500/50`
+                }`}
                 onClick={() => handleEnrollClick(pkg.planName, pkg.price)}
                 data-testid={`button-buy-${index}`}
               >
@@ -285,14 +282,10 @@ export default function PackagesSection() {
           ))}
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-10 bg-card/50 backdrop-blur-sm rounded-full px-6 py-3 inline-block mx-auto w-full max-w-lg">
-          🔒 All prices are in Indian Rupees (INR). Secure payment powered by Razorpay.
+        <p className="text-center text-sm text-slate-400 mt-12 bg-slate-800/30 backdrop-blur-sm rounded-full px-8 py-4 inline-block mx-auto w-full max-w-2xl border border-slate-700">
+          🔒 All prices in INR. Secure payment by Razorpay.
         </p>
       </div>
-
-      <style>{`
-        .delay-1000 { animation-delay: 1000ms; }
-      `}</style>
     </section>
   );
 }

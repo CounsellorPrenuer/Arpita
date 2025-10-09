@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Linkedin, Twitter, Facebook, Instagram, Send, MapPin } from "lucide-react";
+import { Mail, Phone, Linkedin, Twitter, Facebook, Instagram, Send, MapPin, Sparkles, ArrowRight } from "lucide-react";
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -39,7 +39,6 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: Replace with actual form submission to backend
     setTimeout(() => {
       toast({
         title: "Thank you for reaching out!",
@@ -55,9 +54,9 @@ export default function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "info@skillzy.in", href: "mailto:info@skillzy.in" },
-    { icon: Phone, label: "Phone", value: "+91 63620 74132", href: "tel:+916362074132" },
-    { icon: MapPin, label: "Location", value: "India", href: "#" },
+    { icon: Mail, label: "Email", value: "info@skillzy.in", href: "mailto:info@skillzy.in", gradient: "from-blue-500 to-cyan-500" },
+    { icon: Phone, label: "Phone", value: "+91 63620 74132", href: "tel:+916362074132", gradient: "from-emerald-500 to-teal-500" },
+    { icon: MapPin, label: "Location", value: "India", href: "#", gradient: "from-violet-500 to-purple-500" },
   ];
 
   const socialLinks = [
@@ -68,162 +67,146 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-gradient-to-b from-background via-card/30 to-background relative overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl animate-pulse delay-1000" />
+    <section id="contact" className="py-24 md:py-32 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_-100px,#3b82f640,transparent)]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6" data-testid="text-contact-title">
-            <span className="bg-gradient-to-r from-primary via-brand-green to-brand-yellow bg-clip-text text-transparent">
-              Let's Connect
-            </span>
+        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500/20 to-violet-500/20 rounded-full border border-blue-500/30 backdrop-blur-xl mb-8">
+            <Send className="h-5 w-5 text-blue-400" />
+            <span className="text-sm font-bold text-blue-300">Get In Touch</span>
+          </div>
+          
+          <h2 className="font-heading font-black text-5xl md:text-6xl lg:text-7xl mb-6 text-white" data-testid="text-contact-title">
+            Let's <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">Connect</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-medium">
             Ready to take the next step in your journey? Reach out today.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-          <Card className={`p-8 md:p-10 bg-gradient-to-br from-card to-primary/5 hover:shadow-2xl transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} data-testid="card-contact-form">
-            <h3 className="font-heading font-semibold text-2xl md:text-3xl text-foreground mb-8 flex items-center gap-3">
-              <Send className="h-7 w-7 text-primary" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Card className={`p-10 bg-gradient-to-br from-blue-600 to-violet-600 border-0 shadow-2xl hover:shadow-blue-500/50 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} data-testid="card-contact-form">
+            <h3 className="font-heading font-black text-3xl text-white mb-8 flex items-center gap-3">
+              <Send className="h-8 w-8" />
               Send a Message
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="group">
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="h-12 text-base transition-all duration-300 focus:ring-2 focus:ring-primary"
-                  data-testid="input-name"
-                />
-              </div>
-              <div className="group">
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="h-12 text-base transition-all duration-300 focus:ring-2 focus:ring-primary"
-                  data-testid="input-email"
-                />
-              </div>
-              <div className="group">
-                <Input
-                  type="tel"
-                  name="phone"
-                  placeholder="Your Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="h-12 text-base transition-all duration-300 focus:ring-2 focus:ring-primary"
-                  data-testid="input-phone"
-                />
-              </div>
-              <div className="group">
-                <Textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="text-base transition-all duration-300 focus:ring-2 focus:ring-primary resize-none"
-                  data-testid="input-message"
-                />
-              </div>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
+                data-testid="input-name"
+              />
+              <Input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
+                data-testid="input-email"
+              />
+              <Input
+                type="tel"
+                name="phone"
+                placeholder="Your Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+                className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
+                data-testid="input-phone"
+              />
+              <Textarea
+                name="message"
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={6}
+                className="text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300 resize-none"
+                data-testid="input-message"
+              />
               <Button
                 type="submit"
-                variant="destructive"
                 size="lg"
-                className="w-full text-base font-semibold shadow-lg shadow-destructive/30 hover:shadow-xl hover:shadow-destructive/40 hover:scale-105 transition-all duration-300"
+                className="w-full text-lg font-black py-7 bg-white text-blue-600 hover:bg-white/90 border-0 shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300"
                 disabled={isSubmitting}
                 data-testid="button-submit"
               >
-                {isSubmitting ? "Sending..." : "Send Message →"}
+                {isSubmitting ? "Sending..." : "Send Message"}
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </form>
           </Card>
 
           <div className={`space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <Card className="p-8 bg-gradient-to-br from-card to-brand-green/5 hover:shadow-2xl transition-all duration-500" data-testid="card-contact-info">
-              <h3 className="font-heading font-semibold text-2xl text-foreground mb-6">
-                Contact Information
-              </h3>
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <a
-                    key={index}
-                    href={info.href}
-                    className={`flex items-center gap-4 p-5 rounded-xl hover:scale-105 transition-all duration-300 bg-gradient-to-r from-primary/5 to-transparent hover:from-primary/10 ${
-                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                    }`}
-                    style={{ transitionDelay: `${400 + index * 100}ms` }}
-                    data-testid={`link-contact-${index}`}
-                  >
-                    <div className="p-4 rounded-xl bg-primary/10">
-                      <info.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{info.label}</p>
-                      <p className="font-semibold text-foreground text-lg">{info.value}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </Card>
+            {contactInfo.map((info, index) => (
+              <a
+                key={index}
+                href={info.href}
+                className={`flex items-center gap-6 p-6 rounded-2xl bg-gradient-to-r ${info.gradient} border-0 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300`}
+                data-testid={`link-contact-${index}`}
+              >
+                <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm">
+                  <info.icon className="h-7 w-7 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/80 font-bold uppercase tracking-wide">{info.label}</p>
+                  <p className="font-black text-white text-xl">{info.value}</p>
+                </div>
+              </a>
+            ))}
 
-            <Card className="p-8 bg-gradient-to-br from-card to-brand-yellow/5 hover:shadow-2xl transition-all duration-500" data-testid="card-social">
-              <h3 className="font-heading font-semibold text-2xl text-foreground mb-6">
+            <Card className="p-8 bg-slate-800/50 backdrop-blur-xl border border-slate-700 hover:border-blue-500/50 transition-all duration-500" data-testid="card-social">
+              <h3 className="font-heading font-bold text-2xl text-white mb-6">
                 Connect on Social Media
               </h3>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.href}
-                    className="p-5 rounded-xl hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary/10 to-brand-green/10 hover:from-primary/20 hover:to-brand-green/20 hover:shadow-lg group"
+                    className="p-5 rounded-2xl hover:scale-125 transition-all duration-300 bg-gradient-to-br from-blue-500/20 to-violet-500/20 hover:from-blue-500/30 hover:to-violet-500/30 border border-blue-500/20 hover:border-blue-500/50"
                     aria-label={social.label}
                     data-testid={`link-social-${index}`}
                   >
-                    <social.icon className="h-7 w-7 text-primary group-hover:text-brand-green transition-colors duration-300" />
+                    <social.icon className="h-7 w-7 text-blue-400" />
                   </a>
                 ))}
               </div>
             </Card>
 
-            <Card className="p-8 bg-gradient-to-br from-primary via-brand-green to-brand-yellow text-white hover:shadow-2xl transition-all duration-500 hover:scale-105" data-testid="card-skillzy">
-              <h3 className="font-heading font-semibold text-2xl mb-3">
-                Visit Skillzy
-              </h3>
-              <p className="text-white/90 mb-6 leading-relaxed">
-                Explore our complete range of programs and services
-              </p>
-              <Button
-                variant="secondary"
-                size="lg"
-                asChild
-                className="w-full font-semibold hover:scale-105 transition-all duration-300"
-                data-testid="button-visit-website"
-              >
-                <a href="https://skillzy.in" target="_blank" rel="noopener noreferrer">
-                  Visit Website →
-                </a>
-              </Button>
+            <Card className="p-8 bg-gradient-to-br from-emerald-600 to-teal-600 border-0 shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-500" data-testid="card-skillzy">
+              <div className="flex items-start gap-4">
+                <Sparkles className="h-8 w-8 text-white flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-heading font-black text-2xl text-white mb-3">
+                    Visit Skillzy
+                  </h3>
+                  <p className="text-white/90 mb-6 leading-relaxed font-medium text-lg">
+                    Explore our complete range of programs and services
+                  </p>
+                  <Button
+                    size="lg"
+                    asChild
+                    className="w-full font-black bg-white text-emerald-600 hover:bg-white/90 border-0 shadow-2xl hover:shadow-white/50"
+                    data-testid="button-visit-website"
+                  >
+                    <a href="https://skillzy.in" target="_blank" rel="noopener noreferrer">
+                      Visit Website →
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </Card>
           </div>
         </div>
       </div>
-
-      <style>{`
-        .delay-1000 { animation-delay: 1000ms; }
-      `}</style>
     </section>
   );
 }
