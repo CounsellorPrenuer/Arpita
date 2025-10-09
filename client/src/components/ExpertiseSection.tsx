@@ -1,7 +1,28 @@
+import { useEffect, useState } from "react";
 import ServiceCard from "./ServiceCard";
 import { Briefcase, Users, TrendingUp, Heart, Compass, Sparkles, GraduationCap, Presentation, School, Building2 } from "lucide-react";
 
 export default function ExpertiseSection() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const element = document.getElementById("coaching");
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const coachingServices = [
     {
       icon: Briefcase,
@@ -69,35 +90,57 @@ export default function ExpertiseSection() {
   ];
 
   return (
-    <section id="coaching" className="py-16 md:py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4" data-testid="text-expertise-title">
-            My Areas of Expertise
+    <section id="coaching" className="py-20 md:py-32 bg-gradient-to-b from-background via-card/30 to-background relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6" data-testid="text-expertise-title">
+            <span className="bg-gradient-to-r from-primary via-brand-green to-primary bg-clip-text text-transparent">
+              My Areas of Expertise
+            </span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Comprehensive coaching and training solutions tailored to your growth journey
           </p>
         </div>
 
-        <div className="mb-16">
-          <h3 className="font-heading font-semibold text-2xl md:text-3xl text-foreground mb-8 text-center md:text-left" data-testid="text-coaching-services">
+        <div className="mb-20">
+          <h3 className={`font-heading font-semibold text-2xl md:text-3xl text-foreground mb-10 text-center transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} data-testid="text-coaching-services">
             Coaching Services
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {coachingServices.map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <div
+                key={index}
+                className={`transition-all duration-700 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${300 + index * 100}ms` }}
+              >
+                <ServiceCard {...service} />
+              </div>
             ))}
           </div>
         </div>
 
         <div id="programs">
-          <h3 className="font-heading font-semibold text-2xl md:text-3xl text-foreground mb-8 text-center md:text-left" data-testid="text-corporate-programs">
+          <h3 className={`font-heading font-semibold text-2xl md:text-3xl text-foreground mb-10 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} data-testid="text-corporate-programs">
             Corporate & Academic Programs
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {corporatePrograms.map((program, index) => (
-              <ServiceCard key={index} {...program} />
+              <div
+                key={index}
+                className={`transition-all duration-700 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${900 + index * 100}ms` }}
+              >
+                <ServiceCard {...program} />
+              </div>
             ))}
           </div>
         </div>

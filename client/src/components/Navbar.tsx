@@ -33,17 +33,22 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b"
-          : "bg-background/60 backdrop-blur-md"
+          ? "bg-background/90 backdrop-blur-xl border-b shadow-lg"
+          : "bg-background/70 backdrop-blur-md"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-testid="link-logo">
-            <img src={logoImage} alt="Skillzy Logo" className="h-10 md:h-12" />
-            <span className="font-heading font-bold text-xl md:text-2xl">Skillzy</span>
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-testid="link-logo">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-all duration-300" />
+              <img src={logoImage} alt="Skillzy Logo" className="h-10 md:h-12 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <span className="font-heading font-bold text-xl md:text-2xl bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              Skillzy
+            </span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
@@ -51,24 +56,25 @@ export default function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className="text-foreground hover:text-primary transition-all duration-300 font-medium relative group"
                 data-testid={`link-${link.id}`}
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
               </button>
             ))}
             <Button
               variant="destructive"
               onClick={() => scrollToSection("contact")}
               data-testid="button-consultation"
-              className="hover-elevate active-elevate-2"
+              className="shadow-lg shadow-destructive/30 hover:shadow-xl hover:shadow-destructive/40 hover:scale-105 transition-all duration-300"
             >
               Book a Consultation
             </Button>
           </div>
 
           <button
-            className="md:hidden"
+            className="md:hidden p-2 hover:bg-primary/10 rounded-lg transition-colors duration-300"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             data-testid="button-mobile-menu"
           >
@@ -78,13 +84,13 @@ export default function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t bg-background/95 backdrop-blur-lg">
-          <div className="px-4 py-4 space-y-3">
+        <div className="md:hidden border-t bg-background/95 backdrop-blur-xl animate-in slide-in-from-top duration-300">
+          <div className="px-4 py-6 space-y-4">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors font-medium"
+                className="block w-full text-left py-3 px-4 text-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-300 font-medium"
                 data-testid={`link-mobile-${link.id}`}
               >
                 {link.name}
@@ -92,7 +98,7 @@ export default function Navbar() {
             ))}
             <Button
               variant="destructive"
-              className="w-full hover-elevate active-elevate-2"
+              className="w-full shadow-lg shadow-destructive/30"
               onClick={() => scrollToSection("contact")}
               data-testid="button-mobile-consultation"
             >
