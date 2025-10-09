@@ -108,22 +108,22 @@ export default function AboutSection() {
             </Card>
 
             <Card className="p-8 bg-gradient-to-br from-emerald-600 to-teal-600 border-0 shadow-2xl hover:shadow-emerald-500/50 transition-all duration-500">
-              <p className="text-xl text-white leading-relaxed font-medium" data-testid="text-bio-2">
+              <div className="text-xl text-white leading-relaxed font-medium" data-testid="text-bio-2">
                 With a proven track record of transforming{" "}
                 <Badge className="inline-flex mx-1 text-lg bg-white text-emerald-600 border-0 font-black px-4 py-1">41,100+ lives</Badge>, 
                 Dr. Arpita has established herself as a trusted advisor to C-suite executives, senior leaders, 
                 and professionals across diverse industries.
-              </p>
+              </div>
             </Card>
 
             <Card className="p-8 bg-slate-800/50 backdrop-blur-xl border border-slate-700 hover:border-violet-500/50 transition-all duration-500">
-              <p className="text-lg text-slate-300 leading-relaxed mb-6" data-testid="text-bio-3">
+              <div className="text-lg text-slate-300 leading-relaxed mb-6" data-testid="text-bio-3">
                 As an{" "}
                 <Badge className="inline-flex bg-gradient-to-r from-blue-500 to-violet-500 text-white border-0 font-bold">ICF Certified Executive Coach</Badge>, 
                 Dr. Arpita specializes in leadership development, career transitions, organizational change, 
                 and personal growth. Her approach combines evidence-based coaching methodologies with deep 
                 cultural insights, creating sustainable transformational outcomes.
-              </p>
+              </div>
 
               <p className="text-lg text-slate-300 leading-relaxed" data-testid="text-bio-4">
                 Dr. Arpita's commitment to excellence has earned her numerous accolades, including the 
