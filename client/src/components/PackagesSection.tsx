@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, X, Sparkles, Zap, Crown } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Check, X, Sparkles, Zap, Crown, ShoppingCart } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 type TabKey = "8-9" | "10-12" | "college" | "working";
 
@@ -19,8 +24,17 @@ interface Package {
 }
 
 export default function PackagesSection() {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<TabKey>("8-9");
   const [isVisible, setIsVisible] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: string; type: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingForm, setBookingForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -170,8 +184,43 @@ export default function PackagesSection() {
   const currentGradient = tabs.find(t => t.key === activeTab)?.gradient || "from-blue-500 to-cyan-500";
 
   const handleEnrollClick = (planName: string, price: string) => {
-    console.log(`Enroll in ${planName} (${price}) clicked`);
-    alert(`Razorpay integration coming soon! Plan: ${planName}, Price: ${price}`);
+    const packageType = tabs.find(t => t.key === activeTab)?.label || activeTab;
+    setSelectedPackage({ name: planName, price, type: packageType });
+    setIsBookingModalOpen(true);
+  };
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedPackage) return;
+
+    setIsSubmitting(true);
+    try {
+      await apiRequest("POST", "/api/bookings", {
+        name: bookingForm.name,
+        email: bookingForm.email,
+        phone: bookingForm.phone,
+        packageType: selectedPackage.type,
+        packageName: selectedPackage.name,
+        price: selectedPackage.price,
+      });
+
+      toast({
+        title: "Booking Submitted!",
+        description: "Thank you for your interest. We'll contact you shortly.",
+      });
+
+      setBookingForm({ name: "", email: "", phone: "" });
+      setIsBookingModalOpen(false);
+      setSelectedPackage(null);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit booking. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -286,6 +335,89 @@ export default function PackagesSection() {
           🔒 All prices in INR. Secure payment by Razorpay.
         </p>
       </div>
+
+      <Dialog open={isBookingModalOpen} onOpenChange={setIsBookingModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ShoppingCart className="h-5 w-5 text-blue-500" />
+              Complete Your Booking
+            </DialogTitle>
+            <DialogDescription>
+              {selectedPackage && (
+                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="font-semibold text-slate-900">{selectedPackage.name}</p>
+                  <p className="text-sm text-slate-600">{selectedPackage.type}</p>
+                  <p className="text-lg font-bold text-blue-600 mt-1">{selectedPackage.price}</p>
+                </div>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <form onSubmit={handleBookingSubmit} className="space-y-4 mt-4">
+            <div>
+              <Label htmlFor="booking-name">Full Name *</Label>
+              <Input
+                id="booking-name"
+                placeholder="Enter your full name"
+                value={bookingForm.name}
+                onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
+                required
+                data-testid="input-booking-name"
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="booking-email">Email Address *</Label>
+              <Input
+                id="booking-email"
+                type="email"
+                placeholder="your.email@example.com"
+                value={bookingForm.email}
+                onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
+                required
+                data-testid="input-booking-email"
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="booking-phone">Phone Number *</Label>
+              <Input
+                id="booking-phone"
+                type="tel"
+                placeholder="+91 98765 43210"
+                value={bookingForm.phone}
+                onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
+                required
+                data-testid="input-booking-phone"
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setIsBookingModalOpen(false);
+                  setBookingForm({ name: "", email: "", phone: "" });
+                }}
+                className="flex-1"
+                data-testid="button-booking-cancel"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex-1 bg-gradient-to-r from-blue-500 to-violet-500"
+                data-testid="button-booking-submit"
+              >
+                {isSubmitting ? "Submitting..." : "Submit Booking"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
