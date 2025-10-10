@@ -41,8 +41,8 @@ export default function PackagesSection() {
   }, []);
 
   const tabs = [
-    { key: "8-9" as TabKey, label: "8-9 STUDENTS", gradient: "from-blue-500 to-cyan-500" },
-    { key: "10-12" as TabKey, label: "10-12 STUDENTS", gradient: "from-emerald-500 to-teal-500" },
+    { key: "8-9" as TabKey, label: "8TH-9TH GRADE STUDENTS", gradient: "from-blue-500 to-cyan-500" },
+    { key: "10-12" as TabKey, label: "10TH-12TH GRADE STUDENTS", gradient: "from-emerald-500 to-teal-500" },
     { key: "college" as TabKey, label: "COLLEGE GRADUATES", gradient: "from-violet-500 to-purple-500" },
     { key: "working" as TabKey, label: "WORKING PROFESSIONALS", gradient: "from-orange-500 to-amber-500" },
   ];
