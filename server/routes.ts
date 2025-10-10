@@ -152,6 +152,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Get All Bookings
+  app.get("/api/bookings", async (_req, res) => {
+    try {
+      const bookings = await storage.getAllBookings();
+      res.json(bookings);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch bookings" });
+    }
+  });
+  
   // Blog Posts
   app.get("/api/blog-posts", async (_req, res) => {
     try {

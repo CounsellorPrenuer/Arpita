@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import logoImage from "@assets/logo_1760012244683.png";
+import FreeCallModal from "./FreeCallModal";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFreeCallModalOpen, setIsFreeCallModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,12 +66,12 @@ export default function Navbar() {
               </button>
             ))}
             <Button
-              onClick={() => scrollToSection("contact")}
-              data-testid="button-consultation"
+              onClick={() => setIsFreeCallModalOpen(true)}
+              data-testid="button-free-call"
               className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold border-0 shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/70 hover:scale-110 transition-all duration-300"
             >
-              <Sparkles className="mr-2 h-4 w-4" />
-              Book Now
+              <Phone className="mr-2 h-4 w-4" />
+              Book a Free Call
             </Button>
           </div>
 
@@ -98,15 +100,23 @@ export default function Navbar() {
             ))}
             <Button
               className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold border-0 shadow-2xl shadow-blue-500/50 py-6"
-              onClick={() => scrollToSection("contact")}
-              data-testid="button-mobile-consultation"
+              onClick={() => {
+                setIsFreeCallModalOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              data-testid="button-mobile-free-call"
             >
-              <Sparkles className="mr-2 h-4 w-4" />
-              Book Now
+              <Phone className="mr-2 h-4 w-4" />
+              Book a Free Call
             </Button>
           </div>
         </div>
       )}
+      
+      <FreeCallModal 
+        open={isFreeCallModalOpen} 
+        onOpenChange={setIsFreeCallModalOpen} 
+      />
     </nav>
   );
 }
