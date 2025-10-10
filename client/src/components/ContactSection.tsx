@@ -110,7 +110,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 required
                 className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
-                data-testid="input-name"
+                data-testid="input-contact-name"
               />
               <Input
                 type="email"
@@ -120,7 +120,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 required
                 className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
-                data-testid="input-email"
+                data-testid="input-contact-email"
               />
               <Input
                 type="tel"
@@ -128,8 +128,9 @@ export default function ContactSection() {
                 placeholder="Your Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
+                required
                 className="h-14 text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300"
-                data-testid="input-phone"
+                data-testid="input-contact-phone"
               />
               <Textarea
                 name="message"
@@ -139,14 +140,14 @@ export default function ContactSection() {
                 required
                 rows={6}
                 className="text-lg bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40 transition-all duration-300 resize-none"
-                data-testid="input-message"
+                data-testid="textarea-contact-message"
               />
               <Button
                 type="submit"
                 size="lg"
                 className="w-full text-lg font-black py-7 bg-white text-blue-600 hover:bg-white/90 border-0 shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300"
                 disabled={isSubmitting}
-                data-testid="button-submit"
+                data-testid="button-contact-submit"
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
                 <ArrowRight className="ml-2 h-5 w-5" />

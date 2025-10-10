@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, Mail, CreditCard, Download, FileText, Users, CheckCircle, FolderOpen, Download as DownloadIcon, Plus } from "lucide-react";
 import * as XLSX from "xlsx";
