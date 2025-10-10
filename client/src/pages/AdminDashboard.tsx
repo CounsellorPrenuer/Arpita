@@ -35,6 +35,11 @@ export default function AdminDashboard() {
     queryKey: ["/api/admin/recent-contacts"],
   });
 
+  const leads = [
+    ...(recentBookings || []).map(b => ({ ...b, type: "booking" as const })),
+    ...(recentContacts || []).map(c => ({ ...c, type: "contact" as const }))
+  ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
   const { data: recentPayments } = useQuery<Payment[]>({
     queryKey: ["/api/admin/recent-payments"],
   });
@@ -132,6 +137,85 @@ export default function AdminDashboard() {
               </div>
 
               <div className="space-y-6">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold text-slate-900" data-testid="text-leads-title">
+                      All Leads ({leads.length})
+                    </h2>
+                    <div className="flex gap-2">
+                      <Button 
+                        onClick={() => exportToExcel("bookings")} 
+                        variant="outline" 
+                        size="sm"
+                        data-testid="button-export-leads-bookings"
+                      >
+                        <DownloadIcon className="w-4 h-4 mr-2" />
+                        Export Bookings
+                      </Button>
+                      <Button 
+                        onClick={() => exportToExcel("contacts")} 
+                        variant="outline" 
+                        size="sm"
+                        data-testid="button-export-leads-contacts"
+                      >
+                        <DownloadIcon className="w-4 h-4 mr-2" />
+                        Export Contacts
+                      </Button>
+                    </div>
+                  </div>
+                  <Card className="p-4">
+                    {leads.length > 0 ? (
+                      <div className="space-y-3">
+                        {leads.map((lead, index) => (
+                          <div 
+                            key={`${lead.type}-${lead.id}`}
+                            className="flex items-center justify-between p-3 bg-slate-50 rounded-lg"
+                            data-testid={`lead-item-${index}`}
+                          >
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <p className="font-semibold text-slate-900" data-testid={`lead-name-${index}`}>{lead.name}</p>
+                                <Badge 
+                                  variant={lead.type === "booking" ? "default" : "secondary"}
+                                  className={lead.type === "booking" ? "bg-blue-500" : "bg-emerald-500"}
+                                  data-testid={`lead-type-${index}`}
+                                >
+                                  {lead.type === "booking" ? "Package Booking" : "Contact Form"}
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-slate-600" data-testid={`lead-email-${index}`}>{lead.email}</p>
+                              {lead.type === "booking" && (
+                                <p className="text-xs text-slate-500 mt-1" data-testid={`lead-package-${index}`}>
+                                  {(lead as Booking).packageType} - {(lead as Booking).packageName} ({(lead as Booking).price})
+                                </p>
+                              )}
+                              {lead.type === "contact" && (
+                                <p className="text-xs text-slate-500 mt-1" data-testid={`lead-message-${index}`}>
+                                  {(lead as Contact).message.substring(0, 100)}...
+                                </p>
+                              )}
+                              {lead.type === "booking" && (lead as Booking).phone && (
+                                <p className="text-xs text-slate-500" data-testid={`lead-phone-${index}`}>
+                                  📱 {(lead as Booking).phone}
+                                </p>
+                              )}
+                            </div>
+                            <p className="text-sm text-slate-500" data-testid={`lead-date-${index}`}>
+                              {new Date(lead.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-12">
+                        <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                        <p className="text-slate-500">No Leads Yet</p>
+                        <p className="text-sm text-slate-400">Package bookings and contact submissions will appear here.</p>
+                      </div>
+                    )}
+                  </Card>
+                </div>
+
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-bold text-slate-900" data-testid="text-recent-bookings-title">
