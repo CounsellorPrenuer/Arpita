@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, Linkedin, Twitter, Facebook, Instagram, Send, MapPin, Sparkles, ArrowRight } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -39,14 +40,23 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      await apiRequest("POST", "/api/contact", formData);
+      
       toast({
         title: "Thank you for reaching out!",
         description: "I'll get back to you within 24 hours.",
       });
       setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
