@@ -141,6 +141,12 @@ export default function Footer() {
             </a>
           </div>
         </div>
+
+        <div className="mt-8 text-center">
+          <p className="text-slate-400 font-medium" data-testid="text-partnership">
+            In partnership with Mentoria for enhanced career guidance services.
+          </p>
+        </div>
       </div>
     </footer>
   );
