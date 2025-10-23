@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, Trophy, Star, Medal, Crown, Gem } from "lucide-react";
+import { Award, Trophy, Star, Medal, Crown, Gem, GraduationCap, Heart, Lightbulb } from "lucide-react";
 
 export default function AwardsSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -26,46 +26,60 @@ export default function AwardsSection() {
 
   const awards = [
     {
-      icon: Trophy,
-      title: "Mahatma Gandhi Samman",
-      organization: "National Award",
-      year: "2024",
-      gradient: "from-yellow-500 via-amber-500 to-orange-500",
-    },
-    {
-      icon: Crown,
-      title: "Best Executive Coach Award",
-      organization: "International Coaching Federation",
-      year: "2023",
+      icon: GraduationCap,
+      title: "Professor of Practice Award",
+      organization: "ISTD & ISME – Diploma in Professor of Practice",
+      year: "2025",
       gradient: "from-blue-500 via-cyan-500 to-teal-500",
     },
     {
-      icon: Star,
-      title: "Iconic Women Leader",
-      organization: "Women Leadership Summit",
-      year: "2023",
-      gradient: "from-emerald-500 via-green-500 to-teal-500",
-    },
-    {
-      icon: Medal,
-      title: "Top 10 Women Leaders in Soft Skills",
-      organization: "Industry Recognition",
-      year: "2022",
-      gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
-    },
-    {
-      icon: Gem,
-      title: "Excellence in L&OD",
-      organization: "HR Excellence Awards",
-      year: "2022",
-      gradient: "from-rose-500 via-pink-500 to-fuchsia-500",
+      icon: Lightbulb,
+      title: "Aegis Graham Bell Innovation Award",
+      organization: "Innovation in Health: Holistic Approaches to Healthy Weight Management (Rated 8/10)",
+      year: "2025",
+      gradient: "from-purple-500 via-pink-500 to-rose-500",
     },
     {
       icon: Award,
       title: "Inspiring Coach of the Year",
       organization: "Coaching Excellence Awards",
-      year: "2021",
+      year: "2023",
       gradient: "from-indigo-500 via-blue-500 to-cyan-500",
+    },
+    {
+      icon: Crown,
+      title: "Teaching Training Quality Excellence Award",
+      organization: "Indian Quality Assurance Council (IQAC) and ISTD",
+      year: "2022",
+      gradient: "from-emerald-500 via-green-500 to-teal-500",
+    },
+    {
+      icon: Trophy,
+      title: "Mahatma Gandhi Samman",
+      organization: "NRI Welfare Society of INDIA at House of Commons, London",
+      year: "2022",
+      gradient: "from-yellow-500 via-amber-500 to-orange-500",
+    },
+    {
+      icon: Star,
+      title: "Iconic Women Leader",
+      organization: "Asia-GCC Awards",
+      year: "2021",
+      gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
+    },
+    {
+      icon: Medal,
+      title: "Top 10 Women Leaders in Soft Skills",
+      organization: "Women Leadership Summit",
+      year: "2020",
+      gradient: "from-rose-500 via-pink-500 to-red-500",
+    },
+    {
+      icon: Gem,
+      title: "Excellence in L&OD",
+      organization: "ISTD",
+      year: "2019",
+      gradient: "from-fuchsia-500 via-purple-500 to-violet-500",
     },
   ];
 

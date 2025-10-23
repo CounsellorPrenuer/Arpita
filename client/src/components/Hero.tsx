@@ -19,9 +19,9 @@ export default function Hero() {
   }, []);
 
   const stats = [
-    { icon: Briefcase, label: "Years Experience", value: "20+", gradient: "from-blue-500 to-cyan-400" },
-    { icon: Users, label: "Lives Transformed", value: "41K+", gradient: "from-emerald-500 to-teal-400" },
-    { icon: Award, label: "ICF Certified", value: "✓", gradient: "from-violet-500 to-purple-400" },
+    { icon: Briefcase, label: "Years Experience", value: "25+", gradient: "from-blue-500 to-cyan-400" },
+    { icon: Users, label: "Lives Transformed", value: "51,100+", gradient: "from-emerald-500 to-teal-400" },
+    { icon: Award, label: "ICF, ABNLP & IAPCCT Certified", value: "✓", gradient: "from-violet-500 to-purple-400" },
     { icon: Trophy, label: "Awards Won", value: "10+", gradient: "from-orange-500 to-amber-400" },
   ];
 
@@ -53,7 +53,7 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-xl">
             <Sparkles className="h-5 w-5 text-blue-400 animate-pulse" />
-            <span className="text-sm font-bold text-blue-300 tracking-wide">Transforming Leaders Since 2004</span>
+            <span className="text-sm font-bold text-blue-300 tracking-wide">Transforming Leaders since 1999</span>
             <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
           </div>
 
