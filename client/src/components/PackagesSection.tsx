@@ -48,7 +48,7 @@ export default function PackagesSection() {
       { threshold: 0.1 }
     );
 
-    const element = document.querySelector('#programs');
+    const element = document.querySelector('#pricing');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
@@ -224,7 +224,7 @@ export default function PackagesSection() {
   };
 
   return (
-    <section id="programs" className="py-24 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
+    <section id="pricing" className="py-24 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_300px,#3b82f640,transparent)]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

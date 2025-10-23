@@ -7,14 +7,15 @@ export default function Footer() {
     { name: "About", id: "about" },
     { name: "Coaching Services", id: "coaching" },
     { name: "Programs", id: "programs" },
+    { name: "Pricing", id: "pricing" },
     { name: "Awards", id: "awards" },
     { name: "Contact", id: "contact" },
   ];
 
   const skillzyLinks = [
     { name: "Skillzy Home", href: "https://skillzy.in", external: true },
-    { name: "Career Guidance", id: "programs" },
-    { name: "Admission Guidance", id: "programs" },
+    { name: "Career Guidance", id: "pricing" },
+    { name: "Admission Guidance", id: "pricing" },
     { name: "Corporate Training", href: "https://skillzy.in/corporate", external: true },
   ];
 

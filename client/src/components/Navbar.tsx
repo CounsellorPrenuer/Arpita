@@ -29,6 +29,7 @@ export default function Navbar() {
     { name: "About", id: "about" },
     { name: "Coaching", id: "coaching" },
     { name: "Programs", id: "programs" },
+    { name: "Pricing", id: "pricing" },
     { name: "Awards", id: "awards" },
     { name: "Contact", id: "contact" },
   ];
