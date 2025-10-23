@@ -12,10 +12,10 @@ export default function Footer() {
   ];
 
   const skillzyLinks = [
-    { name: "Skillzy Home", href: "https://skillzy.in" },
-    { name: "Career Guidance", href: "https://skillzy.in/career" },
-    { name: "Admission Guidance", href: "https://skillzy.in/admission" },
-    { name: "Corporate Training", href: "https://skillzy.in/corporate" },
+    { name: "Skillzy Home", href: "https://skillzy.in", external: true },
+    { name: "Career Guidance", id: "programs" },
+    { name: "Admission Guidance", id: "programs" },
+    { name: "Corporate Training", href: "https://skillzy.in/corporate", external: true },
   ];
 
   const socialLinks = [
@@ -90,15 +90,25 @@ export default function Footer() {
             <ul className="space-y-3">
               {skillzyLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block font-semibold"
-                    data-testid={`link-skillzy-${index}`}
-                  >
-                    → {link.name}
-                  </a>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block font-semibold"
+                      data-testid={`link-skillzy-${index}`}
+                    >
+                      → {link.name}
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => scrollToSection(link.id!)}
+                      className="text-slate-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block font-semibold"
+                      data-testid={`link-skillzy-${index}`}
+                    >
+                      → {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
