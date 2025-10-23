@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Linkedin, Twitter, Facebook, Instagram, Send, MapPin, Sparkles, ArrowRight } from "lucide-react";
+import { Mail, Phone, Linkedin, Facebook, Youtube, Send, MapPin, Sparkles, ArrowRight } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function ContactSection() {
@@ -70,10 +70,9 @@ export default function ContactSection() {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Twitter, label: "Twitter", href: "#" },
-    { icon: Facebook, label: "Facebook", href: "#" },
-    { icon: Instagram, label: "Instagram", href: "#" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/arpitadutta/" },
+    { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/Cherryskillzlearning" },
+    { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@cherryskillzlearning" },
   ];
 
   return (
