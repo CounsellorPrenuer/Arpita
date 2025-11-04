@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { Mail, Phone, Linkedin, Facebook, Youtube, Heart, Sparkles } from "lucide-react";
+import { Mail, Phone, Linkedin, Facebook, Youtube, Instagram, Heart, Sparkles } from "lucide-react";
 import logoImage from "@assets/logo_1760012244683.png";
 
 export default function Footer() {
@@ -23,6 +23,7 @@ export default function Footer() {
     { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/arpitadutta/" },
     { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/Cherryskillzlearning" },
     { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@cherryskillzlearning" },
+    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/cherryskillzlearning" },
   ];
 
   const scrollToSection = (id: string) => {
