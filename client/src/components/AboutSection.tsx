@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Award, Sparkles, Star } from "lucide-react";
+import profileImagePath from "@assets/1725271782681_1763741071098.jpg";
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,18 +57,11 @@ export default function AboutSection() {
           <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <Card className="overflow-hidden group hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 border-0 bg-gradient-to-br from-slate-800 to-slate-900">
               <div className="aspect-[3/4] bg-gradient-to-br from-blue-600 via-violet-600 to-emerald-600 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]" />
-                <div className="text-center p-8 relative z-10">
-                  <div className="w-56 h-56 mx-auto rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-emerald-500 flex items-center justify-center mb-8 group-hover:scale-125 transition-transform duration-700 shadow-2xl shadow-blue-500/50 border-4 border-white/20">
-                    <span className="text-8xl font-heading font-black text-white">DA</span>
-                  </div>
-                  <div className="bg-slate-900/80 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
-                    <p className="text-sm text-slate-300 italic font-medium">
-                      {/* TODO: Replace with actual profile photo */}
-                      Professional photo placeholder - Replace with Dr. Arpita's image
-                    </p>
-                  </div>
-                </div>
+                <img 
+                  src={profileImagePath} 
+                  alt="Dr. Arpita" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
             </Card>
 
