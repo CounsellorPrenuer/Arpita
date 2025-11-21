@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Award, Sparkles, Star } from "lucide-react";
-import profileImagePath from "@assets/1725271782681_1763741071098.jpg";
+import profileImagePath from "@assets/Gemini_Generated_Image_q8buhoq8buhoq8bu_1763741188935.png";
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
