@@ -60,7 +60,8 @@ export default function AboutSection() {
                 <img 
                   src={profileImagePath} 
                   alt="Dr. Arpita" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover"
+                  style={{ imageRendering: '-webkit-optimize-contrast' }}
                 />
               </div>
             </Card>
