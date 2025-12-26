@@ -103,6 +103,7 @@ export default function PackagesSection() {
       {
         planName: "Achieve Plus+",
         price: "₹ 10,599",
+        paymentButtonId: "pl_RwDzfVkQYEdAIf",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "4 career counselling sessions", included: true },
