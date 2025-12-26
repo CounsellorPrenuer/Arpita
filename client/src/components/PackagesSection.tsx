@@ -120,6 +120,7 @@ export default function PackagesSection() {
       {
         planName: "Ascend Online",
         price: "₹ 6,499",
+        paymentButtonId: "pl_RwE1evNHrHWJDW",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
@@ -149,6 +150,7 @@ export default function PackagesSection() {
       {
         planName: "Ascend Online",
         price: "₹ 6,499",
+        paymentButtonId: "pl_RwE1evNHrHWJDW",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
