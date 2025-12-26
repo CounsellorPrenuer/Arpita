@@ -72,6 +72,7 @@ export default function PackagesSection() {
       {
         planName: "Discover plus+",
         price: "₹ 15,000",
+        paymentButtonId: "pl_RwDq8XpK76OhB3",
         features: [
           { text: "Psychometric assessments to measure your interests, personality and abilities", included: true },
           { text: "8 career counselling sessions (1 every year) with Mentoria's expert career coaches until graduation", included: true },
