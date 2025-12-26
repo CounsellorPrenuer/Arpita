@@ -58,7 +58,7 @@ export default function PackagesSection() {
       {
         planName: "Discover",
         price: "₹ 5,500",
-        paymentButtonId: "pl_RwDk6EBd4dUzVc",
+        paymentButtonId: "pl_RwDq8XpK76OhB3",
         features: [
           { text: "Psychometric assessment to measure your interests", included: true },
           { text: "1 career counselling session with Mentoria's expert career coaches", included: true },
