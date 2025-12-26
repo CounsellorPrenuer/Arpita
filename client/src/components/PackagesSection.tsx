@@ -2,12 +2,8 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Check, X, Sparkles, Zap, Crown, ShoppingCart } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
+import { Zap, Crown, Sparkles, Check, X } from "lucide-react";
+import RazorpayButton from "@/components/RazorpayButton";
 
 type TabKey = "8-9" | "10-12" | "college" | "working";
 
@@ -21,20 +17,16 @@ interface Package {
   price: string;
   features: Feature[];
   isPopular?: boolean;
+  paymentButtonId?: string;
 }
 
 export default function PackagesSection() {
-  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<TabKey>("8-9");
   const [isVisible, setIsVisible] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<{ name: string; price: string; type: string } | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [bookingForm, setBookingForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
+
+  // Placeholder ID provided by the user. 
+  // TODO: Replace with unique IDs for each package from Razorpay Dashboard
+  const DEFAULT_PAYMENT_ID = "pl_L0ABCDE12345";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -183,57 +175,17 @@ export default function PackagesSection() {
   const currentPackages = packagesData[activeTab];
   const currentGradient = tabs.find(t => t.key === activeTab)?.gradient || "from-blue-500 to-cyan-500";
 
-  const handleEnrollClick = (planName: string, price: string) => {
-    const packageType = tabs.find(t => t.key === activeTab)?.label || activeTab;
-    setSelectedPackage({ name: planName, price, type: packageType });
-    setIsBookingModalOpen(true);
-  };
-
-  const handleBookingSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedPackage) return;
-
-    setIsSubmitting(true);
-    try {
-      await apiRequest("POST", "/api/bookings", {
-        name: bookingForm.name,
-        email: bookingForm.email,
-        phone: bookingForm.phone,
-        packageType: selectedPackage.type,
-        packageName: selectedPackage.name,
-        price: selectedPackage.price,
-      });
-
-      toast({
-        title: "Booking Submitted!",
-        description: "Thank you for your interest. We'll contact you shortly.",
-      });
-
-      setBookingForm({ name: "", email: "", phone: "" });
-      setIsBookingModalOpen(false);
-      setSelectedPackage(null);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit booking. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <section id="pricing" className="py-24 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_50%_300px,#3b82f640,transparent)]" />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500/20 to-violet-500/20 rounded-full border border-blue-500/30 backdrop-blur-xl mb-8">
             <Zap className="h-5 w-5 text-blue-400" />
             <span className="text-sm font-bold text-blue-300">Flexible Pricing Plans</span>
           </div>
-          
+
           <h2 className="font-heading font-black text-5xl md:text-6xl lg:text-7xl mb-6 text-white" data-testid="text-packages-title">
             Choose Your <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">Path</span>
           </h2>
@@ -248,11 +200,10 @@ export default function PackagesSection() {
               <Button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`font-bold text-base px-8 py-6 transition-all duration-500 border-0 ${
-                  activeTab === tab.key 
-                    ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-blue-500/50 scale-110` 
+                className={`font-bold text-base px-8 py-6 transition-all duration-500 border-0 ${activeTab === tab.key
+                    ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-blue-500/50 scale-110`
                     : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:scale-105'
-                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${200 + index * 100}ms` }}
                 data-testid={`tab-${tab.key}`}
               >
@@ -266,11 +217,10 @@ export default function PackagesSection() {
           {currentPackages.map((pkg, index) => (
             <Card
               key={`${activeTab}-${index}`}
-              className={`p-10 group hover:scale-105 transition-all duration-500 border-0 relative overflow-hidden ${
-                pkg.isPopular 
-                  ? `bg-gradient-to-br ${currentGradient} shadow-2xl shadow-blue-500/50` 
+              className={`p-10 group hover:scale-105 transition-all duration-500 border-0 relative overflow-hidden ${pkg.isPopular
+                  ? `bg-gradient-to-br ${currentGradient} shadow-2xl shadow-blue-500/50`
                   : 'bg-slate-800/50 backdrop-blur-xl'
-              }`}
+                }`}
               data-testid={`card-package-${activeTab}-${index}`}
             >
               {pkg.isPopular && (
@@ -315,18 +265,10 @@ export default function PackagesSection() {
                 ))}
               </ul>
 
-              <Button
-                size="lg"
-                className={`w-full font-black text-lg py-7 transition-all duration-300 border-0 ${
-                  pkg.isPopular 
-                    ? 'bg-white text-slate-900 hover:bg-white/90 shadow-2xl hover:shadow-white/50 hover:scale-105' 
-                    : `bg-gradient-to-r ${currentGradient} text-white hover:scale-105 shadow-2xl shadow-blue-500/50`
-                }`}
-                onClick={() => handleEnrollClick(pkg.planName, pkg.price)}
-                data-testid={`button-buy-${index}`}
-              >
-                BUY NOW →
-              </Button>
+              {/* Razorpay Button Implementation */}
+              <div className="relative z-20">
+                <RazorpayButton paymentButtonId={pkg.paymentButtonId || DEFAULT_PAYMENT_ID} />
+              </div>
             </Card>
           ))}
         </div>
@@ -335,89 +277,6 @@ export default function PackagesSection() {
           🔒 All prices in INR. Secure payment by Razorpay.
         </p>
       </div>
-
-      <Dialog open={isBookingModalOpen} onOpenChange={setIsBookingModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-blue-500" />
-              Complete Your Booking
-            </DialogTitle>
-            <DialogDescription>
-              {selectedPackage && (
-                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="font-semibold text-slate-900">{selectedPackage.name}</p>
-                  <p className="text-sm text-slate-600">{selectedPackage.type}</p>
-                  <p className="text-lg font-bold text-blue-600 mt-1">{selectedPackage.price}</p>
-                </div>
-              )}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <form onSubmit={handleBookingSubmit} className="space-y-4 mt-4">
-            <div>
-              <Label htmlFor="booking-name">Full Name *</Label>
-              <Input
-                id="booking-name"
-                placeholder="Enter your full name"
-                value={bookingForm.name}
-                onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                required
-                data-testid="input-booking-name"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="booking-email">Email Address *</Label>
-              <Input
-                id="booking-email"
-                type="email"
-                placeholder="your.email@example.com"
-                value={bookingForm.email}
-                onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
-                required
-                data-testid="input-booking-email"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="booking-phone">Phone Number *</Label>
-              <Input
-                id="booking-phone"
-                type="tel"
-                placeholder="+91 98765 43210"
-                value={bookingForm.phone}
-                onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                required
-                data-testid="input-booking-phone"
-              />
-            </div>
-
-            <div className="flex gap-3 pt-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  setIsBookingModalOpen(false);
-                  setBookingForm({ name: "", email: "", phone: "" });
-                }}
-                className="flex-1"
-                data-testid="button-booking-cancel"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 bg-gradient-to-r from-blue-500 to-violet-500"
-                data-testid="button-booking-submit"
-              >
-                {isSubmitting ? "Submitting..." : "Submit Booking"}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
