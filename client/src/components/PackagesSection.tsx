@@ -58,6 +58,7 @@ export default function PackagesSection() {
       {
         planName: "Discover",
         price: "₹ 5,500",
+        paymentButtonId: "pl_RwDk6EBd4dUzVc",
         features: [
           { text: "Psychometric assessment to measure your interests", included: true },
           { text: "1 career counselling session with Mentoria's expert career coaches", included: true },
@@ -201,8 +202,8 @@ export default function PackagesSection() {
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={`font-bold text-base px-8 py-6 transition-all duration-500 border-0 ${activeTab === tab.key
-                    ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-blue-500/50 scale-110`
-                    : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:scale-105'
+                  ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-blue-500/50 scale-110`
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:scale-105'
                   } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${200 + index * 100}ms` }}
                 data-testid={`tab-${tab.key}`}
@@ -218,8 +219,8 @@ export default function PackagesSection() {
             <Card
               key={`${activeTab}-${index}`}
               className={`p-10 group hover:scale-105 transition-all duration-500 border-0 relative overflow-hidden ${pkg.isPopular
-                  ? `bg-gradient-to-br ${currentGradient} shadow-2xl shadow-blue-500/50`
-                  : 'bg-slate-800/50 backdrop-blur-xl'
+                ? `bg-gradient-to-br ${currentGradient} shadow-2xl shadow-blue-500/50`
+                : 'bg-slate-800/50 backdrop-blur-xl'
                 }`}
               data-testid={`card-package-${activeTab}-${index}`}
             >
