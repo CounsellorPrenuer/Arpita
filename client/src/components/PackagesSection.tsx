@@ -134,6 +134,7 @@ export default function PackagesSection() {
       {
         planName: "Ascend Plus+",
         price: "₹ 10,599",
+        paymentButtonId: "pl_RwE3WEILWB9WeJ",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "3 career counselling sessions", included: true },
@@ -164,6 +165,7 @@ export default function PackagesSection() {
       {
         planName: "Ascend Plus+",
         price: "₹ 10,599",
+        paymentButtonId: "pl_RwE3WEILWB9WeJ",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "2 career counselling sessions", included: true },
