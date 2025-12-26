@@ -89,6 +89,7 @@ export default function PackagesSection() {
       {
         planName: "Achieve Online",
         price: "₹ 5,999",
+        paymentButtonId: "pl_RwDxvLPQP7j4rG",
         features: [
           { text: "Psychometric assessment to measure your interests, personality and abilities", included: true },
           { text: "1 career counselling session", included: true },
